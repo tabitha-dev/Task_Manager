@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Calendar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="app">
+        <nav class="sidebar">
+            <h2>TaskFlow</h2>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-columns"></i> Dashboard</a></li>
+                <li><a href="teams.html"><i class="fas fa-users"></i> Teams</a></li>
+                <li><a href="calendar.html" class="active"><i class="fas fa-calendar-alt"></i> Calendar</a></li>
+                <li><a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a></li>
+                <li><a href="charts.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </nav>
+        <main class="main">
+            <header class="main-header">
+                <h1>Calendar View</h1>
+                <div class="calendar-actions">
+                    <div class="view-toggle">
+                        <button class="btn-secondary active" onclick="switchView('month')">Month</button>
+                        <button class="btn-secondary" onclick="switchView('week')">Week</button>
+                    </div>
+                    <div class="calendar-nav">
+                        <button class="btn-nav" onclick="prevMonth()"><i class="fas fa-chevron-left"></i></button>
+                        <h2 id="current-month"></h2>
+                        <button class="btn-nav" onclick="nextMonth()"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <button class="btn-primary" onclick="addQuickTask()"><i class="fas fa-plus"></i> Quick Add</button>
+                </div>
+            </header>
+            <div class="calendar-filters">
+                <div class="filter-group">
+                    <input type="text" id="task-search" placeholder="Search tasks..." onkeyup="filterTasks()">
+                    <select id="tag-filter" onchange="filterTasks()">
+                        <option value="all">All Tags</option>
+                        <option value="work">Work</option>
+                        <option value="personal">Personal</option>
+                        <option value="urgent">Urgent</option>
+                    </select>
+                    <select id="priority-filter" onchange="filterTasks()">
+                        <option value="all">All Priorities</option>
+                        <option value="high">High Priority</option>
+                        <option value="medium">Medium Priority</option>
+                        <option value="low">Low Priority</option>
+                    </select>
+                </div>
+                <button class="btn-secondary" onclick="exportTasks()"><i class="fas fa-download"></i> Export</button>
+            </div>
+            <div class="calendar-wrapper">
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div class="calendar-grid" id="calendar-grid"></div>
+                </div>
+                <div class="task-sidebar">
+                    <div class="date-tasks" id="date-tasks">
+                        <h3>Selected Date Tasks</h3>
+                        <div class="tasks-list" id="tasks-list"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="calendar-legend">
+                <div class="legend-item">
+                    <span class="legend-dot high-priority"></span>
+                    <span>High Priority</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot medium-priority"></span>
+                    <span>Medium Priority</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot low-priority"></span>
+                    <span>Low Priority</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot overdue"></span>
+                    <span>Overdue</span>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="modal" id="quick-add-modal">
+        <div class="modal-content">
+            <h3>Quick Add Task</h3>
+            <form id="quick-task-form">
+                <input type="text" id="quick-task-title" placeholder="Task Title" required>
+                <input type="date" id="quick-task-date" required>
+                <select id="quick-task-priority">
+                    <option value="high">High Priority</option>
+                    <option value="medium">Medium Priority</option>
+                    <option value="low">Low Priority</option>
+                </select>
+                <select id="quick-task-tag">
+                    <option value="work">Work</option>
+                    <option value="personal">Personal</option>
+                    <option value="urgent">Urgent</option>
+                </select>
+                <div class="modal-buttons">
+                    <button type="submit" class="btn-primary">Add Task</button>
+                    <button type="button" class="btn-secondary" onclick="closeModal('quick-add-modal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="calendar.js"></script>
+</body>
+</html>

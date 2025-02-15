@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Settings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="app">
+        <nav class="sidebar">
+            <h2>TaskFlow</h2>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-columns"></i> Dashboard</a></li>
+                <li><a href="teams.html"><i class="fas fa-users"></i> Teams</a></li>
+                <li><a href="calendar.html"><i class="fas fa-calendar-alt"></i> Calendar</a></li>
+                <li><a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a></li>
+                <li><a href="charts.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                <li><a href="settings.html" class="active"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </nav>
+        <main class="main">
+            <header class="main-header">
+                <h1>Settings</h1>
+            </header>
+            <div class="settings-container">
+                <div class="setting-item">
+                    <h3>Theme</h3>
+                    <button onclick="toggleDarkMode()" class="btn-secondary">Toggle Dark Mode</button>
+                </div>
+                <div class="setting-item">
+                    <h3>Notifications</h3>
+                    <label><input type="checkbox" id="notificationToggle" onchange="toggleNotifications()"> Enable Desktop Notifications</label>
+                </div>
+                <div class="setting-item">
+                    <h3>Default Task View</h3>
+                    <select id="defaultView" onchange="updateDefaultView()">
+                        <option value="all">All Tasks</option>
+                        <option value="active">Active Tasks</option>
+                        <option value="archived">Archived Tasks</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <h3>Auto Archive</h3>
+                    <label><input type="checkbox" id="autoArchive" onchange="toggleAutoArchive()"> Auto-archive completed tasks after 7 days</label>
+                </div>
+                <div class="setting-item">
+                    <h3>Clear Data</h3>
+                    <button onclick="clearAllData()" class="btn-danger">Clear All Data</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="settings.js"></script>
+</body>
+</html>

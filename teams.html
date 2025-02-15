@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Teams</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="app">
+        <nav class="sidebar">
+            <h2>TaskFlow</h2>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-columns"></i> Dashboard</a></li>
+                <li><a href="teams.html" class="active"><i class="fas fa-users"></i> Teams</a></li>
+                <li><a href="calendar.html"><i class="fas fa-calendar-alt"></i> Calendar</a></li>
+                <li><a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a></li>
+                <li><a href="charts.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </nav>
+        <main class="main">
+            <header class="main-header">
+                <h1>Team Management</h1>
+                <button class="btn-primary" onclick="openModal('add-participant-modal')">+ Add Team Member</button>
+            </header>
+            <div class="teams-container">
+                <div class="team-members">
+                    <h2>Team Members</h2>
+                    <div class="team-grid" id="team-grid"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Participant Modal -->
+    <div class="modal" id="add-participant-modal">
+        <div class="modal-content">
+            <h3>Add New Team Member</h3>
+            <form>
+                <label for="participant-name">Name</label>
+                <input type="text" id="participant-name" placeholder="Enter Team Member Name">
+                <label for="participant-avatar">Avatar URL</label>
+                <input type="text" id="participant-avatar" placeholder="Enter Avatar URL">
+                <div class="modal-buttons">
+                    <button type="button" class="btn-primary" onclick="addParticipant()">Add Member</button>
+                    <button type="button" class="btn-secondary" onclick="closeModal('add-participant-modal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="teams.js"></script>
+</body>
+</html>

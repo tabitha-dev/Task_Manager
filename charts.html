@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Analytics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <style>
+        .chart-card {
+            height: 400px;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .chart-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .chart-error {
+            color: #e53e3e;
+            text-align: center;
+            padding: 20px;
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <nav class="sidebar">
+            <h2>TaskFlow</h2>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-columns"></i> Dashboard</a></li>
+                <li><a href="teams.html"><i class="fas fa-users"></i> Teams</a></li>
+                <li><a href="calendar.html"><i class="fas fa-calendar-alt"></i> Calendar</a></li>
+                <li><a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a></li>
+                <li><a href="charts.html" class="active"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </nav>
+        <main class="main">
+            <header class="main-header">
+                <h1>Task Analytics</h1>
+                <div class="actions">
+                    <select id="timeRange" class="btn-secondary">
+                        <option value="week">Last Week</option>
+                        <option value="month">Last Month</option>
+                        <option value="year">Last Year</option>
+                    </select>
+                </div>
+            </header>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Task Status Distribution</h3>
+                    <canvas id="statusChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Tasks by Priority</h3>
+                    <canvas id="priorityChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Team Performance</h3>
+                    <canvas id="teamChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Task Completion Trend</h3>
+                    <canvas id="trendChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Burndown Chart</h3>
+                    <canvas id="burndownChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Time Metrics</h3>
+                    <canvas id="timeMetricsChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Tag Distribution</h3>
+                    <canvas id="tagDistributionChart"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script src="script.js"></script>
+    <script src="charts.js"></script>
+</body>
+</html>

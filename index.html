@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TaskFlow - Task Management Application">
+  <title>TaskFlow - Task Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+  <div class="app">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <h2>TaskFlow</h2>
+      <ul>
+        <li><a href="index.html" class="active"><i class="fas fa-columns"></i> Dashboard</a></li>
+        <li><a href="teams.html"><i class="fas fa-users"></i> Teams</a></li>
+        <li><a href="calendar.html"><i class="fas fa-calendar-alt"></i> Calendar</a></li>
+        <li><a href="notes.html"><i class="fas fa-sticky-note"></i> Notes</a></li>
+        <li><a href="charts.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+      <header class="main-header">
+        <h1>Task Management</h1>
+        <div class="actions">
+          <button 
+      class="btn-primary" 
+      onclick="openModal('add-task-modal')"
+      aria-label="Add new task"
+      data-loading="false"
+    >
+      <span class="button-text">+ Add Task</span>
+      <span class="loading-spinner" hidden>Loading...</span>
+    </button>
+          <button class="btn-secondary" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+        </div>
+      </header>
+
+      <!-- Filters and Sorting -->
+      <div class="filters">
+        <select id="filter-tasks" onchange="filterTasks()">
+          <option value="all">All Tasks</option>
+          <option value="high-priority">High Priority</option>
+          <option value="low-priority">Low Priority</option>
+          <option value="completed">Completed</option>
+        </select>
+        <select id="sort-tasks" onchange="sortTasks()">
+          <option value="due-date">Sort by Due Date</option>
+          <option value="priority">Sort by Priority</option>
+          <option value="title">Sort by Title</option>
+        </select>
+      </div>
+
+      <!-- Task Widgets -->
+      <section class="widgets">
+        <div class="widget">
+          <h3>Total Tasks</h3>
+          <p id="total-tasks">0</p>
+        </div>
+        <div class="widget">
+          <h3>Completed Tasks</h3>
+          <p id="completed-tasks">0</p>
+        </div>
+        <div class="widget">
+          <h3>Overdue Tasks</h3>
+          <p id="overdue-tasks">0</p>
+        </div>
+        <div class="widget">
+          <h3>Archived Tasks</h3>
+          <p id="archived-tasks-count">0</p>
+        </div>
+      </section>
+
+      <!-- Task Columns -->
+      <section class="task-columns">
+        <!-- Task Ready -->
+        <div class="task-column" id="task-ready" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <div class="column-header">
+            Task Ready
+            <div class="quick-add">
+              <input type="text" id="quick-add-task-ready" placeholder="Quick Add Task">
+              <button onclick="quickAddTask('task-ready')">+</button>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress" id="progress-ready"></div>
+          </div>
+          <div class="task-list"></div>
+        </div>
+
+        <!-- In Progress -->
+        <div class="task-column" id="in-progress" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <div class="column-header">
+            In Progress
+            <div class="quick-add">
+              <input type="text" id="quick-add-task-in-progress" placeholder="Quick Add Task">
+              <button onclick="quickAddTask('in-progress')">+</button>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress" id="progress-progress"></div>
+          </div>
+          <div class="task-list"></div>
+        </div>
+
+        <!-- Needs Review -->
+        <div class="task-column" id="needs-review" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <div class="column-header">
+            Needs Review
+            <div class="quick-add">
+              <input type="text" id="quick-add-task-needs-review" placeholder="Quick Add Task">
+              <button onclick="quickAddTask('needs-review')">+</button>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress" id="progress-review"></div>
+          </div>
+          <div class="task-list"></div>
+        </div>
+
+        <!-- Done -->
+        <div class="task-column" id="done" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <div class="column-header">
+            Done
+            <div class="quick-add">
+              <input type="text" id="quick-add-task-done" placeholder="Quick Add Task">
+              <button onclick="quickAddTask('done')">+</button>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress" id="progress-done"></div>
+          </div>
+          <div class="task-list"></div>
+        </div>
+
+        <!-- Archived Tasks -->
+        <div class="task-column" id="archived-tasks">
+          <div class="column-header">Archived Tasks</div>
+          <div class="task-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="activity-log">
+      <h2>Activity Log</h2>
+      <ul id="activity-log"></ul>
+      <div class="participants">
+        <h3>Participants</h3>
+        <div class="participant-icons">
+          <img src="https://tse2.mm.bing.net/th?id=OIP.2uEljQ9uzzaH71LpZE79hAHaIA&w=474&h=474&c=7" alt="Tabitha" class="participant" title="Tabitha">
+          <img src="https://tse1.mm.bing.net/th?id=OIP.q2YsgHsjuMWvKbVbnp-aJwHaHa&w=474&h=474&c=7" alt="Rahul" class="participant" title="Rahul">
+          <img src="https://tse2.mm.bing.net/th?id=OIP.28jmE4s4hgzuaJnqvGffRQHaHa&w=474&h=474&c=7" alt="Aadvik" class="participant" title="Aadvik">
+          <button class="btn-secondary" onclick="openModal('add-participant-modal')">+ Add Participant</button>
+        </div>
+      </div>
+      <div class="clock-container">
+        <h3>Current Time</h3>
+        <div id="clock"></div>
+        <div id="current-date"></div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Add Task Modal -->
+  <div class="modal" id="add-task-modal">
+    <div class="modal-content">
+      <h3>Add New Task</h3>
+      <form>
+        <label for="task-title">Task Title</label>
+        <input type="text" id="task-title" placeholder="Enter Task Title">
+        <label for="task-desc">Description</label>
+        <textarea id="task-desc" placeholder="Enter Task Description"></textarea>
+        <label for="task-tags">Tags</label>
+        <input type="text" id="task-tags" placeholder="e.g., Bug, Design, Review">
+        <label for="task-priority">Priority</label>
+        <select id="task-priority">
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+        <label for="task-assignee">Assign To</label>
+        <select id="task-assignee">
+          <option value="Tabitha">Tabitha</option>
+          <option value="Rahul">Rahul</option>
+          <option value="Aadvik">Aadvik</option>
+        </select>
+        <label for="due-date">Due Date</label>
+        <input type="date" id="due-date">
+        <div class="modal-buttons">
+          <button type="button" class="btn-primary" onclick="addTask()">Add Task</button>
+          <button type="button" class="btn-secondary" onclick="closeModal('add-task-modal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Comments Modal -->
+  <div class="modal" id="comments-modal">
+    <div class="modal-content">
+      <h3 id="comments-title">Comments</h3>
+      <ul id="comments-list"></ul>
+      <textarea id="comment-text" placeholder="Add a comment..."></textarea>
+      <button class="btn-primary" onclick="addComment()">Add Comment</button>
+      <button class="btn-secondary" onclick="closeModal('comments-modal')">Close</button>
+    </div>
+  </div>
+
+  <!-- Add Participant Modal -->
+  <div class="modal" id="add-participant-modal">
+    <div class="modal-content">
+      <h3>Add New Participant</h3>
+      <form>
+        <label for="participant-name">Name</label>
+        <input type="text" id="participant-name" placeholder="Enter Participant Name">
+        <label for="participant-avatar">Avatar URL</label>
+        <input type="text" id="participant-avatar" placeholder="Enter Avatar URL">
+        <div class="modal-buttons">
+          <button type="button" class="btn-primary" onclick="addParticipant()">Add Participant</button>
+          <button type="button" class="btn-secondary" onclick="closeModal('add-participant-modal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="teams.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
