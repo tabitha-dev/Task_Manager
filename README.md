@@ -18,6 +18,12 @@ TaskFlow is a feature-rich and intuitive task management tool, designed to help 
 
 ---
 
+## 🚀 Try It Here
+
+[![Live Demo](https://img.shields.io/badge/Try%20it%20Now-Live%20Demo-blue?style=for-the-badge)](https://tabitha-dev.github.io/Task_Manager/)
+
+---
+
 ## 🔧 Getting Started
 1. **Clone the Repository**:
    ```bash
